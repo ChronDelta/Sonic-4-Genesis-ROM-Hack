@@ -1,0 +1,130 @@
+-------------------------
+Definitions of each phase
+-------------------------
+
+- Proof-Of-Concept - proof of concept
+- Prototype - Very beginning of development
+- Alpha - Early in development to mid-development, mainly for big changes and game-changing... well... changes
+- Beta - Near end of development, made for smaller adjustments, like adjusting music/sprite-work
+
+----------------------
+Additional Information
+----------------------
+
+Team:
+Chron Dafter (me)
+
+Music:
+Composed by Jun Senoue, remade by Turret 3471, and re-remade by Chron Dafter in Deflemask using midis 
+that came from "VGMusic.com" and extracted files from Sonic the Hedgehog 4 for WiiWare
+
+Sprite-work:
+Sonic 2 art
+
+Other Help:
+Sonic the dutch hedgehog [Sonic Epic Quest]
+	(Fixing a few bugs, title screen BG fixing, and animation fixing [Alpha 1].)
+Darkex [Sonic Megadrive'd]
+	(VRAM Support)
+Faceless Fox (Super Sonic's Palette Cycle)
+
+Time order:
+YEAR - MONTH - DAY
+
+----------------
+Proof-Of-Concept
+----------------
+
+Date: 2020/10/07
+
+- Edited Sega Sound
+- Edited Title Screen animations
+- Edited Title Screen banner (Press the START button, SEGA, CHRON, etc.)
+- Added in New In-game Music
+- Edited Sonic's Palette
+- Edited Sonic's Sprites
+- Edited Sonic's Animation
+
+----------
+Prototype1
+----------
+
+Date: 2021/01/26
+
+- Sonic Mania waiting animations
+- Splash Hill Zone Act 3 Art getting worked on
+- Added Splash Hill Zone Act 3 music
+- BG Art worked on
+- Title Screen worked on
+
+------
+Alpha1
+------
+
+Date: 2021/02/05
+
+- Fixed Sonic Mania Animations
+- Swapped SHZ3 to SHZ1 instead
+- Reset to default music
+- Added the SpinDash
+- Added Jumpdash
+- researching on homing attack
+- somehow broke art
+
+---------------------
+VWMI Prototype/Alpha2
+---------------------
+
+- Fixed TS BG 
+(Thanks, Sonic the dutch hedgehog)
+
+------
+Alpha3
+------
+
+Chron's Note:
+I halted work on the project for a while because of school 
+and... personal issues, but those are personal issues (lol). I 
+took a break and began working on it during the beginning 
+of April. I then decided to work on trying to recreate 
+Turret 3471's Sonic 4 Genesis in Deflemask, cause I thought 
+that he used midis from VGMusic. I used that and decided to 
+try recreating that OST. Then, I decided that the ROM that 
+I created that day seemed good enough to put in the 
+"SUA Prototypes + Changelog" folder.
+
+Date: 2021/5/3
+
+- Fixed Title Screen BG again
+- Updated music
+- Changed level order to fit a demo
+- Changed back Sonic to regular S1 art
+- Fixed Sonic's palette
+- Fixed level art
+
+----------
+Practice 1
+----------
+
+Date: 2021/6/18
+
+- I began hacking in github's disassembly, and began practicing code.
+- Thanks, lavagaming1 for the title cards
+
+----------
+why damnit
+----------
+
+Date: 2021/11/1
+
+- I re-FUCKING-started >:<
+
+----------------------
+I ADDED SUPER SONIC!!!
+----------------------
+
+Date: 2021/12/19
+
+-Sonic 2's art is in the game (excluding palette)
+-OMFG I GOT SUPER SONIC TO WORK!!! AHHHHHHHHHHHH
+-WIP Spindash is in
