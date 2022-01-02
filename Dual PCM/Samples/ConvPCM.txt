@@ -1,0 +1,2 @@
+Sample Rate:	20500
+Interpolation:	TRUE
