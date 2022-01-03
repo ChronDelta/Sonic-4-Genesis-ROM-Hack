@@ -16311,10 +16311,12 @@ Obj3C_Solid:				; XREF: Obj3C_Index
 		bne.s	Obj3C_ChkRoll
 
 locret_D180:
-		rts	
+		rts
 ; ===========================================================================
 
 Obj3C_ChkRoll:				; XREF: Obj3C_Solid
+                tst.b   (Super_Sonic_flag).w
+                bne.s   ObjBreakeAnyways
 		cmpi.b	#2,$1C(a1)	; is Sonic rolling?
 		bne.s	locret_D180	; if not, branch
 		move.w	$30(a0),d0
@@ -16324,6 +16326,7 @@ Obj3C_ChkRoll:				; XREF: Obj3C_Solid
 Obj3C_ChkSpeed:
 		cmpi.w	#$480,d0	; is Sonic's speed $480 or higher?
 		bcs.s	locret_D180	; if not, branch
+ObjBreakeAnyways:		
 		move.w	$30(a0),$10(a1)
 		addq.w	#4,8(a1)
 		lea	(Obj3C_FragSpd1).l,a4 ;	use fragments that move	right
@@ -16347,7 +16350,7 @@ Obj3C_FragMove:				; XREF: Obj3C_Index
 		bsr.w	DisplaySprite
 		tst.b	1(a0)
 		bpl.w	DeleteObject
-		rts	
+		rts
 
 ; ---------------------------------------------------------------------------
 ; Subroutine to	smash a	block (GHZ walls and MZ	blocks)
