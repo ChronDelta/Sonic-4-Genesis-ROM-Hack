@@ -1,5 +1,5 @@
 ; ---------------------------------------------------------------------------
-; Sprite mappings - monitors
+; Sprite mappings - monitors (Optimized) Ported by -paranoimia-
 ; ---------------------------------------------------------------------------
 		dc.w byte_A5A2-Map_obj26, byte_A5A8-Map_obj26
 		dc.w byte_A5B3-Map_obj26, byte_A5BE-Map_obj26
@@ -31,14 +31,14 @@ byte_A5EA:	dc.b 2			; invincibility	monitor
 		dc.b $F5, 5, 0,	$2C, $F8
 		dc.b $EF, $F, 0, 0, $F0
 byte_A5F5:	dc.b 2			; 10 rings monitor
-		dc.b $F5, 5, 0,	$30, $F8
-		dc.b $EF, $F, 0, 0, $F0
-byte_A600:	dc.b 2			; 'S' monitor
-byte_A601:	dc.b $F5, 5, 0,	$34, $F8
-		dc.b $EF, $F, 0, 0, $F0
-byte_A60B:	dc.b 2			; goggles monitor
 		dc.b $F5, 5, 0,	$20, $F8
 		dc.b $EF, $F, 0, 0, $F0
+byte_A600:	dc.b 2			; 'S' monitor
+		dc.b $F5, 5, 0,	$3C, $F8
+		dc.b $EF, $F, 0, 0, $F0
+byte_A60B:	dc.b 2			; goggles monitor
+		dc.b $F5, 5, 0,	$38, $F8
+		dc.b $EF, $F, 0, 0, $F0
 byte_A616:	dc.b 1			; broken monitor
-		dc.b $FF, $D, 0, $38, $F0
+		dc.b $FF, $D, 0, $30, $F0
 		even

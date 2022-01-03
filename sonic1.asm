@@ -3411,7 +3411,7 @@ Title_LoadText:
 		move.b	#$8A,d0		; play title screen music
 		bsr.w	PlaySound_Special
 		move.b	#0,($FFFFFFFA).w ; disable debug mode
-		move.w	#$178,($FFFFF614).w ; run title	screen for $178	frames
+		move.w	#$578,($FFFFF614).w ; run title	screen for 578 frames
 		lea	($FFFFD080).w,a1
 		moveq	#0,d0
 		move.w	#$F,d1	; ($40 / 4) - 1
@@ -4090,6 +4090,7 @@ Level_LoadObj:
 		bne.s	loc_39E8	; if yes, branch
 		move.w	d0,($FFFFFE20).w ; clear rings
 		move.l	d0,($FFFFFE22).w ; clear time
+        move.b  d0,($FFFFFEBF).w ; value used to increment centiseconds
 		move.b	d0,($FFFFFE1B).w ; clear lives counter
 
 loc_39E8:
@@ -4104,7 +4105,6 @@ loc_39E8:
 		bsr.w	OscillateNumInit
 		move.b	#1,($FFFFFE1F).w ; update score	counter
 		move.b	#1,($FFFFFE1D).w ; update rings	counter
-		move.b	#1,($FFFFFE1E).w ; update time counter
 		move.w	#0,($FFFFF790).w
 		lea	(Demo_Index).l,a1 ; load demo data
 		moveq	#0,d0
@@ -4169,7 +4169,8 @@ Level_ClrCardArt:
 		jsr	(LoadPLC).l	; load animal patterns (level no. + $15)
 
 Level_StartGame:
-		bclr	#7,($FFFFF600).w ; subtract 80 from screen mode
+        move.b    #1,($FFFFFE1E).w ; update time counter
+        bclr    #7,($FFFFF600).w ; subtract 80 from screen mode
 
 ; ---------------------------------------------------------------------------
 ; Main level loop (when	all title card and loading sequences are finished)
@@ -5568,6 +5569,7 @@ Cont_GotoLevel:				; XREF: Cont_MainLoop
 		moveq	#0,d0
 		move.w	d0,($FFFFFE20).w ; clear rings
 		move.l	d0,($FFFFFE22).w ; clear time
+        move.b    d0,($FFFFFEBF).w ; value used to increment centiseconds
 		move.l	d0,($FFFFFE26).w ; clear score
 		move.b	d0,($FFFFFE30).w ; clear lamppost count
 		subq.b	#1,($FFFFFE18).w ; subtract 1 from continues
@@ -37608,7 +37610,7 @@ Obj21_Main:				; XREF: Obj21_Main
 		move.w	#$90,8(a0)
 		move.w	#$108,$A(a0)
 		move.l	#Map_obj21,4(a0)
-		move.w	#$6CA,2(a0)
+        move.w    #$6BA,2(a0)
 		move.b	#0,1(a0)
 		move.b	#0,$18(a0)
 
@@ -37695,56 +37697,75 @@ loc_1C6E4:
 		bsr.w	Hud_Rings
 
 Hud_ChkTime:
-		tst.b	($FFFFFE1E).w	; does the time	need updating?
-		beq.s	Hud_ChkLives	; if not, branch
-		tst.w	($FFFFF63A).w	; is the game paused?
-		bne.s	Hud_ChkLives	; if yes, branch
-		lea	($FFFFFE22).w,a1
-		cmpi.l	#$93B3B,(a1)+	; is the time 9.59?
-		beq.s	TimeOver	; if yes, branch
-		addq.b	#1,-(a1)
-		cmpi.b	#60,(a1)
-		bcs.s	Hud_ChkLives
-		move.b	#0,(a1)
-		addq.b	#1,-(a1)
-		cmpi.b	#60,(a1)
-		bcs.s	loc_1C734
-		move.b	#0,(a1)
-		addq.b	#1,-(a1)
-		cmpi.b	#9,(a1)
-		bcs.s	loc_1C734
-		move.b	#9,(a1)
+        tst.b    ($FFFFFE1E).w    ; does the time    need updating?
+        beq.w    Hud_ChkLives    ; if not, branch    ;Mercury HUD Centiseconds (bsr.s => bsr.w) ported by -paranoimia-
+        tst.w    ($FFFFF63A).w    ; is the game paused?
+        bne.w    Hud_ChkLives    ; if yes, branch    ;Mercury HUD Centiseconds (bsr.s => bsr.w) ported by -paranoimia-
+        lea    ($FFFFFE22).w,a1
+        cmpi.l    #$93B63,(a1)+    ; is the time 9'59"99?
+        beq.w    TimeOver    ; if yes, branch    ;Mercury HUD Centiseconds (bsr.s => bsr.w) ported by -paranoimia-
+        move.b    ($FFFFFEBF).w,d1
+        addi.b    #1,d1
+        cmpi.b    #3,d1
+        bne.s    Cent_Skip
+        move.b    #0,d1
+      
+Cent_Skip:
+        move.b    d1,($FFFFFEBF).w
+        cmpi.b    #2,d1
+        beq.s    Cent_Skip2
+        addi.b    #1,d1
+      
+Cent_Skip2:
+        add.b    d1,-(a1)
+        cmpi.b    #100,(a1)
+        bcs.s    Hud_DoCent
+        move.b    #0,(a1)
+        addq.b    #1,-(a1)
+        cmpi.b    #60,(a1)
+        bcs.s    loc_1C734
+        move.b    #0,(a1)
+        addq.b    #1,-(a1)
+        cmpi.b    #9,(a1)
+        bcs.s    loc_1C734
+        move.b    #9,(a1)
 
 loc_1C734:
-		move.l	#$5E400003,d0
-		moveq	#0,d1
-		move.b	($FFFFFE23).w,d1 ; load	minutes
-		bsr.w	Hud_Mins
-		move.l	#$5EC00003,d0
-		moveq	#0,d1
-		move.b	($FFFFFE24).w,d1 ; load	seconds
-		bsr.w	Hud_Secs
+        move.l    #$5E400003,d0
+        moveq    #0,d1
+        move.b    ($FFFFFE23).w,d1 ; load    minutes
+        bsr.w    Hud_Mins
+        move.l    #$5EC00003,d0
+        moveq    #0,d1
+        move.b    ($FFFFFE24).w,d1 ; load    seconds
+        bsr.w    Hud_Secs
+      
+Hud_DoCent:
+        move.l    #$57800003,d0    ;Mercury Macros ported by -paranoimia-
+        moveq    #0,d1
+        move.b    ($FFFFFE25).w,d1 ; load    centiseconds
+        bsr.w    Hud_Secs
 
 Hud_ChkLives:
-		tst.b	($FFFFFE1C).w	; does the lives counter need updating?
-		beq.s	Hud_ChkBonus	; if not, branch
-		clr.b	($FFFFFE1C).w
-		bsr.w	Hud_Lives
+        tst.b    ($FFFFFE1C).w    ; does the lives counter need updating?
+        beq.s    Hud_ChkBonus    ; if not, branch
+        clr.b    ($FFFFFE1C).w
+        bsr.w    Hud_Lives
 
 Hud_ChkBonus:
-		tst.b	($FFFFF7D6).w	; do time/ring bonus counters need updating?
-		beq.s	Hud_End		; if not, branch
-		clr.b	($FFFFF7D6).w
-		move.l	#$6E000002,($C00004).l
-		moveq	#0,d1
-		move.w	($FFFFF7D2).w,d1 ; load	time bonus
-		bsr.w	Hud_TimeRingBonus
-		moveq	#0,d1
-		move.w	($FFFFF7D4).w,d1 ; load	ring bonus
-		bsr.w	Hud_TimeRingBonus
+        tst.b    ($FFFFF7D6).w    ; do time/ring bonus counters need updating?
+        beq.s    Hud_End        ; if not, branch
+        clr.b    ($FFFFF7D6).w
+        move.l    #$6E000002,($C00004).l
+        moveq    #0,d1
+        move.w    ($FFFFF7D2).w,d1 ; load    time bonus
+        bsr.w    Hud_TimeRingBonus
+        moveq    #0,d1
+        move.w    ($FFFFF7D4).w,d1 ; load    ring bonus
+        bsr.w    Hud_TimeRingBonus
 
 Hud_End:
-		rts	
+        rts	
 ; ===========================================================================
 
 TimeOver:				; XREF: Hud_ChkTime
@@ -37811,6 +37832,20 @@ Hud_LoadZero:				; XREF: HudUpdate
 ; End of function Hud_LoadZero
 
 ; ---------------------------------------------------------------------------
+; Subroutine to    load " on the    HUD        ported by -paranoimia-
+; ---------------------------------------------------------------------------
+
+; ||||||||||||||| S U B    R O U T    I N E |||||||||||||||||||||||||||||||||||||||
+
+
+Hud_LoadMarks:                ; XREF: HUD_Update
+        move.l    #$57400003,($D00004).l  ;locVRAM    $D740
+        lea    Hud_TilesMarks(pc),a2
+        move.w    #2,d2
+        bra.s    loc_1C83E
+; End of function Hud_LoadMarks
+
+; ---------------------------------------------------------------------------
 ; Subroutine to	load uncompressed HUD patterns ("E", "0", colon)
 ; ---------------------------------------------------------------------------
 
@@ -37820,6 +37855,7 @@ Hud_LoadZero:				; XREF: HudUpdate
 Hud_Base:				; XREF: Level; SS_EndLoop; EndingSequence
 		lea	($C00000).l,a6
 		bsr.w	Hud_Lives
+		bsr.s    Hud_LoadMarks
 		move.l	#$5C400003,($C00004).l
 		lea	Hud_TilesBase(pc),a2
 		move.w	#$E,d2
@@ -37853,8 +37889,9 @@ loc_1C85E:
 ; End of function Hud_Base
 
 ; ===========================================================================
-Hud_TilesBase:	dc.b $16, $FF, $FF, $FF, $FF, $FF, $FF,	0, 0, $14, 0, 0
-Hud_TilesZero:	dc.b $FF, $FF, 0, 0
+Hud_TilesMarks:    dc.b $1A, 0, 0, 0
+Hud_TilesBase:    dc.b $16, $FF, $FF, $FF, $FF, $FF, $FF,    0, 0, $18, 0, 0
+Hud_TilesZero:    dc.b $FF, $FF, 0, 0
 ; ---------------------------------------------------------------------------
 ; Subroutine to	load debug mode	numbers	patterns
 ; ---------------------------------------------------------------------------
