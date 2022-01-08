@@ -18931,7 +18931,7 @@
 0000DB88 9041                       		sub.w	d1,d0
 0000DB8A 0C40 0280                  		cmpi.w	#$280,d0
 0000DB8E 6200 0000                  		bhi.w	DeleteObject
-0000DB92 4E75                       		rts	
+0000DB92 4E75                       		rts
 0000DB94                            ; ===========================================================================
 0000DB94                            ; ---------------------------------------------------------------------------
 0000DB94                            ; Object 49 - waterfall	sound effect (GHZ)
@@ -19366,7 +19366,7 @@
 0000E11C 3489                       		move.w	a1,(a2)
 0000E11E                            
 0000E11E                            locret_D63E:
-0000E11E 4E75                       		rts	
+0000E11E 4E75                       		rts
 0000E120                            ; End of function DisplaySprite2
 0000E120                            
 0000E120                            ; ---------------------------------------------------------------------------
@@ -19386,7 +19386,7 @@
 0000E126                            loc_D646:
 0000E126 22C1                       		move.l	d1,(a1)+	; clear	the object RAM
 0000E128 51C8 FFFC                  		dbf	d0,loc_D646	; repeat $F times (length of object RAM)
-0000E12C 4E75                       		rts	
+0000E12C 4E75                       		rts
 0000E12E                            ; End of function DeleteObject
 0000E12E                            
 0000E12E                            ; ===========================================================================
@@ -43867,7 +43867,7 @@
 0001DEB8                            AniArt_GiantRing:			; XREF: AniArt_Load
 0001DEB8 4A78 F7BE                  		tst.w	($FFFFF7BE).w
 0001DEBC 6600                       		bne.s	loc_1C518
-0001DEBE 4E75                       		rts	
+0001DEBE 4E75                       		rts
 0001DEC0                            ; ===========================================================================
 0001DEC0                            
 0001DEC0                            loc_1C518:
@@ -43906,7 +43906,7 @@
 0001DF06 317C 0090 0008             		move.w	#$90,8(a0)
 0001DF0C 317C 0108 000A             		move.w	#$108,$A(a0)
 0001DF12 217C 0000 0000 0004        		move.l	#Map_obj21,4(a0)
-0001DF1A 317C 06BA 0002                     move.w    #$6BA,2(a0)
+0001DF1A 317C 06BA 0002                             move.w    #$6BA,2(a0)
 0001DF20 117C 0000 0001             		move.b	#0,1(a0)
 0001DF26 117C 0000 0018             		move.b	#0,$18(a0)
 0001DF2C                            
@@ -44063,13 +44063,13 @@
 0001E0CE 0C01 0003                          cmpi.b    #3,d1
 0001E0D2 6600                               bne.s    Cent_Skip
 0001E0D4 123C 0000                          move.b    #0,d1
-0001E0D8                                  
+0001E0D8                            
 0001E0D8                            Cent_Skip:
 0001E0D8 11C1 FEBF                          move.b    d1,($FFFFFEBF).w
 0001E0DC 0C01 0002                          cmpi.b    #2,d1
 0001E0E0 6700                               beq.s    Cent_Skip2
 0001E0E2 5201                               addi.b    #1,d1
-0001E0E4                                  
+0001E0E4                            
 0001E0E4                            Cent_Skip2:
 0001E0E4 D321                               add.b    d1,-(a1)
 0001E0E6 0C11 0064                          cmpi.b    #100,(a1)
@@ -44093,7 +44093,7 @@
 0001E11E 7200                               moveq    #0,d1
 0001E120 1238 FE24                          move.b    ($FFFFFE24).w,d1 ; load    seconds
 0001E124 6100 0000                          bsr.w    Hud_Secs
-0001E128                                  
+0001E128                            
 0001E128                            Hud_DoCent:
 0001E128 203C 5780 0003                     move.l    #$57800003,d0    ;Mercury Macros ported by -paranoimia-
 0001E12E 7200                               moveq    #0,d1
@@ -44119,7 +44119,7 @@
 0001E16A 6100 0000                          bsr.w    Hud_TimeRingBonus
 0001E16E                            
 0001E16E                            Hud_End:
-0001E16E 4E75                               rts	
+0001E16E 4E75                               rts
 0001E170                            ; ===========================================================================
 0001E170                            
 0001E170                            TimeOver:				; XREF: Hud_ChkTime
@@ -44128,7 +44128,7 @@
 0001E178 2448                       		movea.l	a0,a2
 0001E17A 6100 E8B6                  		bsr.w	KillSonic
 0001E17E 11FC 0001 FE1A             		move.b	#1,($FFFFFE1A).w
-0001E184 4E75                       		rts	
+0001E184 4E75                       		rts
 0001E186                            ; ===========================================================================
 0001E186                            
 0001E186                            HudDebug:				; XREF: HudUpdate
@@ -44168,7 +44168,7 @@
 0001E1EC 6100 0000                  		bsr.w	Hud_TimeRingBonus
 0001E1F0                            
 0001E1F0                            HudDb_End:
-0001E1F0 4E75                       		rts	
+0001E1F0 4E75                       		rts
 0001E1F2                            ; End of function HudUpdate
 0001E1F2                            
 0001E1F2                            ; ---------------------------------------------------------------------------
@@ -44232,7 +44232,7 @@
 0001E252                            loc_1C858:
 0001E252 51CA FFE8                  		dbf	d2,loc_1C842
 0001E256                            
-0001E256 4E75                       		rts	
+0001E256 4E75                       		rts
 0001E258                            ; ===========================================================================
 0001E258                            
 0001E258                            loc_1C85E:
@@ -44369,7 +44369,7 @@
 0001E32A 0680 0040 0000             		addi.l	#$400000,d0
 0001E330 51CE FFB4                  		dbf	d6,Hud_ScoreLoop
 0001E334                            
-0001E334 4E75                       		rts	
+0001E334 4E75                       		rts
 0001E336                            ; End of function Hud_Score
 0001E336                            
 0001E336                            ; ---------------------------------------------------------------------------
@@ -44420,7 +44420,7 @@
 0001E386 2C9B                       		move.l	(a3)+,(a6)
 0001E388 51CE FFCA                  		dbf	d6,ContScr_Loop	; repeat 1 more	time
 0001E38C                            
-0001E38C 4E75                       		rts	
+0001E38C 4E75                       		rts
 0001E38E                            ; End of function ContScrCounter
 0001E38E                            
 0001E38E                            ; ===========================================================================
@@ -44499,7 +44499,7 @@
 0001E3FE 0680 0040 0000             		addi.l	#$400000,d0
 0001E404 51CE FFB8                  		dbf	d6,Hud_TimeLoop
 0001E408                            
-0001E408 4E75                       		rts	
+0001E408 4E75                       		rts
 0001E40A                            ; End of function Hud_Secs
 0001E40A                            
 0001E40A                            ; ---------------------------------------------------------------------------
@@ -44557,7 +44557,7 @@
 0001E458                            loc_1CA5A:
 0001E458 51CE FFBE                  		dbf	d6,Hud_BonusLoop ; repeat 3 more times
 0001E45C                            
-0001E45C 4E75                       		rts	
+0001E45C 4E75                       		rts
 0001E45E                            ; ===========================================================================
 0001E45E                            
 0001E45E                            Hud_ClrBonus:
@@ -44624,7 +44624,7 @@
 0001E4BA 0680 0040 0000             		addi.l	#$400000,d0
 0001E4C0 51CE FFC4                  		dbf	d6,Hud_LivesLoop ; repeat 1 more time
 0001E4C4                            
-0001E4C4 4E75                       		rts	
+0001E4C4 4E75                       		rts
 0001E4C6                            ; ===========================================================================
 0001E4C6                            
 0001E4C6                            Hud_ClrLives:
@@ -47940,7 +47940,7 @@
 00082998 0000 0000 0000 0000        		dc.l Music99, Music9A
 000829A0 0000 0000 0000 0000        		dc.l Music9B, Music9C
 000829A8 0000 0000 0000 0000        		dc.l Music9D, Music9E
-000829B0 0000 0000                  		dc.l Music9F										
+000829B0 0000 0000                  		dc.l Music9F
 000829B4                            ; ---------------------------------------------------------------------------
 000829B4                            ; Type of sound	being played ($90 = music; $70 = normal	sound effect)
 000829B4                            ; ---------------------------------------------------------------------------
@@ -47960,7 +47960,7 @@
 00082A20                            		nop						; EXT: '' ...68k pointer to be saved correctly.
 00082A20 4E71 4E71 4E71 4E71 4E71+  		endr						; EXT: ''
 00082A40                            
-00082A40                            sub_71B4C:	
+00082A40                            sub_71B4C:
 00082A40 4DF9 00FF F000             		lea	($FFF000).l,a6
 00082A46                            
 00082A46 41F9 00A0 02EF             		lea	($A00000+YM_Access).l,a0		; EXT: load access address in Z80

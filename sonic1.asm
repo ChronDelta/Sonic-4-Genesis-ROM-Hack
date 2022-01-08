@@ -16230,7 +16230,7 @@ Obj3B_Solid:				; XREF: Obj3B_Index
 		sub.w	d1,d0
 		cmpi.w	#$280,d0
 		bhi.w	DeleteObject
-		rts	
+		rts
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Object 49 - waterfall	sound effect (GHZ)
@@ -16582,7 +16582,7 @@ DisplaySprite2:
 		move.w	a1,(a2)
 
 locret_D63E:
-		rts	
+		rts
 ; End of function DisplaySprite2
 
 ; ---------------------------------------------------------------------------
@@ -16602,7 +16602,7 @@ DeleteObject2:
 loc_D646:
 		move.l	d1,(a1)+	; clear	the object RAM
 		dbf	d0,loc_D646	; repeat $F times (length of object RAM)
-		rts	
+		rts
 ; End of function DeleteObject
 
 ; ===========================================================================
@@ -37574,7 +37574,7 @@ loc_1C4FA:				; XREF: AniArt_MZextra
 AniArt_GiantRing:			; XREF: AniArt_Load
 		tst.w	($FFFFF7BE).w
 		bne.s	loc_1C518
-		rts	
+		rts
 ; ===========================================================================
 
 loc_1C518:
@@ -37613,7 +37613,7 @@ Obj21_Main:				; XREF: Obj21_Main
 		move.w	#$90,8(a0)
 		move.w	#$108,$A(a0)
 		move.l	#Map_obj21,4(a0)
-        move.w    #$6BA,2(a0)
+                move.w    #$6BA,2(a0)
 		move.b	#0,1(a0)
 		move.b	#0,$18(a0)
 
@@ -37712,13 +37712,13 @@ Hud_ChkTime:
         cmpi.b    #3,d1
         bne.s    Cent_Skip
         move.b    #0,d1
-      
+
 Cent_Skip:
         move.b    d1,($FFFFFEBF).w
         cmpi.b    #2,d1
         beq.s    Cent_Skip2
         addi.b    #1,d1
-      
+
 Cent_Skip2:
         add.b    d1,-(a1)
         cmpi.b    #100,(a1)
@@ -37742,7 +37742,7 @@ loc_1C734:
         moveq    #0,d1
         move.b    ($FFFFFE24).w,d1 ; load    seconds
         bsr.w    Hud_Secs
-      
+
 Hud_DoCent:
         move.l    #$57800003,d0    ;Mercury Macros ported by -paranoimia-
         moveq    #0,d1
@@ -37768,7 +37768,7 @@ Hud_ChkBonus:
         bsr.w    Hud_TimeRingBonus
 
 Hud_End:
-        rts	
+        rts
 ; ===========================================================================
 
 TimeOver:				; XREF: Hud_ChkTime
@@ -37777,7 +37777,7 @@ TimeOver:				; XREF: Hud_ChkTime
 		movea.l	a0,a2
 		bsr.w	KillSonic
 		move.b	#1,($FFFFFE1A).w
-		rts	
+		rts
 ; ===========================================================================
 
 HudDebug:				; XREF: HudUpdate
@@ -37817,7 +37817,7 @@ HudDb_ChkBonus:
 		bsr.w	Hud_TimeRingBonus
 
 HudDb_End:
-		rts	
+		rts
 ; End of function HudUpdate
 
 ; ---------------------------------------------------------------------------
@@ -37881,7 +37881,7 @@ loc_1C852:
 loc_1C858:
 		dbf	d2,loc_1C842
 
-		rts	
+		rts
 ; ===========================================================================
 
 loc_1C85E:
@@ -38018,7 +38018,7 @@ loc_1C92C:
 		addi.l	#$400000,d0
 		dbf	d6,Hud_ScoreLoop
 
-		rts	
+		rts
 ; End of function Hud_Score
 
 ; ---------------------------------------------------------------------------
@@ -38069,7 +38069,7 @@ loc_1C962:
 		move.l	(a3)+,(a6)
 		dbf	d6,ContScr_Loop	; repeat 1 more	time
 
-		rts	
+		rts
 ; End of function ContScrCounter
 
 ; ===========================================================================
@@ -38148,7 +38148,7 @@ loc_1C9D6:
 		addi.l	#$400000,d0
 		dbf	d6,Hud_TimeLoop
 
-		rts	
+		rts
 ; End of function Hud_Secs
 
 ; ---------------------------------------------------------------------------
@@ -38206,7 +38206,7 @@ loc_1CA30:
 loc_1CA5A:
 		dbf	d6,Hud_BonusLoop ; repeat 3 more times
 
-		rts	
+		rts
 ; ===========================================================================
 
 Hud_ClrBonus:
@@ -38273,7 +38273,7 @@ loc_1CABC:
 		addi.l	#$400000,d0
 		dbf	d6,Hud_LivesLoop ; repeat 1 more time
 
-		rts	
+		rts
 ; ===========================================================================
 
 Hud_ClrLives:
@@ -39317,7 +39317,7 @@ MusicIndex:	dc.l Music81, Music82
 		dc.l Music99, Music9A
 		dc.l Music9B, Music9C
 		dc.l Music9D, Music9E
-		dc.l Music9F										
+		dc.l Music9F
 ; ---------------------------------------------------------------------------
 ; Type of sound	being played ($90 = music; $70 = normal	sound effect)
 ; ---------------------------------------------------------------------------
@@ -39337,7 +39337,7 @@ YM_Access_WaitRead:
 		nop						; EXT: '' ...68k pointer to be saved correctly.
 		endr						; EXT: ''
 
-sub_71B4C:	
+sub_71B4C:
 		lea	($FFF000).l,a6
 
 		lea	($A00000+YM_Access).l,a0		; EXT: load access address in Z80
