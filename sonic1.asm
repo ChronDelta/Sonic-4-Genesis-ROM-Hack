@@ -3595,7 +3595,7 @@ LevSel_PlaySnd:
 LevSel_Ending:				; XREF: LevelSelect
 		move.b	#$18,($FFFFF600).w ; set screen	mode to	$18 (Ending)
 		move.w	#$600,($FFFFFE10).w ; set level	to 0600	(Ending)
-		rts	
+		rts
 ; ===========================================================================
 
 LevSel_Credits:				; XREF: LevelSelect
@@ -3603,7 +3603,7 @@ LevSel_Credits:				; XREF: LevelSelect
 		move.b	#$91,d0
 		bsr.w	PlaySound_Special ; play credits music
 		move.w	#0,($FFFFFFF4).w
-		rts	
+		rts
 ; ===========================================================================
 
 LevSel_Level_SS:			; XREF: LevelSelect
@@ -3619,14 +3619,17 @@ LevSel_Level_SS:			; XREF: LevelSelect
 		move.w	d0,($FFFFFE20).w ; clear rings
 		move.l	d0,($FFFFFE22).w ; clear time
 		move.l	d0,($FFFFFE26).w ; clear score
-		rts	
+		rts
 ; ===========================================================================
 
 LevSel_Level:				; XREF: LevSel_Level_SS
 		andi.w	#$3FFF,d0
 		move.w	d0,($FFFFFE10).w ; set level number
 
-PlayLevel:				; XREF: ROM:00003246j ...
+PlayLevel:	
+		; XREF: ROM:00003246j ...
+		move.b  #0,($FFFFD080).w
+		bra.w    loc_317C ; loop this bitch
 		move.b	#$C,($FFFFF600).w ; set	screen mode to $0C (level)
 		move.b	#3,($FFFFFE12).w ; set lives to	3
 		moveq	#0,d0
@@ -3640,7 +3643,7 @@ PlayLevel:				; XREF: ROM:00003246j ...
 		move.b	d0,($FFFFFE18).w ; clear continues
 		move.b	#$E0,d0
 		bsr.w	PlaySound_Special ; fade out music
-		rts	
+		rts
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Level	select - level pointers
