@@ -181,8 +181,8 @@ loc_32C:
 		cmp.l	a0,d0
 		bcc.s	loc_32C
 		movea.l	#Checksum,a1	; read the checksum
-		cmp.w	(a1),d1		; compare correct checksum to the one in ROM
-		bne.w	CheckSumError	; if they don't match, branch
+	;	cmp.w	(a1),d1		; compare correct checksum to the one in ROM
+	;	bne.w	CheckSumError	; if they don't match, branch
 		lea	($FFFFFE00).w,a6
 		moveq	#0,d7
 		move.w	#$7F,d6
