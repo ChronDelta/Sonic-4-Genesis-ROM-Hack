@@ -3626,9 +3626,9 @@ LevSel_Level:				; XREF: LevSel_Level_SS
 		andi.w	#$3FFF,d0
 		move.w	d0,($FFFFFE10).w ; set level number
 
-PlayLevel:	
+PlayLevel:
 		; XREF: ROM:00003246j ...
-		move.b  #0,($FFFFD080).w
+		move.b  #$6,($FFFFD080+$24).w ; ObjMenu_Spawn_Thing
 		bra.w    loc_317C ; loop this bitch
 		move.b	#$C,($FFFFF600).w ; set	screen mode to $0C (level)
 		move.b	#3,($FFFFFE12).w ; set lives to	3
@@ -5620,7 +5620,7 @@ Obj80_Main:				; XREF: Obj80_Index
 		move.b	#0,1(a0)
 		move.b	#$3C,$19(a0)
 		move.w	#$120,8(a0)
-		move.w	#$C0,$A(a0)
+		move.w	#$C0,$C(a0)
 		move.w	#0,($FFFFFE20).w ; clear rings
 
 Obj80_Display:				; XREF: Obj80_Index
@@ -5660,7 +5660,7 @@ Obj80_MiniSonLoop:
 		subi.w	#$A,8(a1)
 
 loc_4EEA:
-		move.w	#$D0,$A(a1)
+		move.w	#$D0,$C(a1)
 		move.b	#6,$1A(a1)
 		move.b	#6,$24(a1)
 		move.l	#Map_obj80,4(a1)
@@ -6229,7 +6229,7 @@ Obj89_Index:	dc.w Obj89_Main-Obj89_Index
 Obj89_Main:				; XREF: Obj89_Index
 		addq.b	#2,$24(a0)
 		move.w	#-$20,8(a0)	; object starts	outside	the level boundary
-		move.w	#$D8,$A(a0)
+		move.w	#$D8,$C(a0)
 		move.l	#Map_obj89,4(a0)
 		move.w	#$5C5,2(a0)
 		move.b	#0,1(a0)
@@ -6483,7 +6483,7 @@ Obj8B_Index:	dc.w Obj8B_Main-Obj8B_Index
 Obj8B_Main:				; XREF: Obj8B_Index
 		addq.b	#2,$24(a0)
 		move.w	#$120,8(a0)
-		move.w	#$F4,$A(a0)
+		move.w	#$F4,$C(a0)
 		move.l	#Map_obj8B,4(a0)
 		move.w	#$3E1,2(a0)
 		move.b	#0,1(a0)
@@ -6566,8 +6566,8 @@ Obj8C_MakeEms:				; XREF: loc_5B42
 		move.b	#1,$18(a1)
 		move.w	#$104,8(a1)
 		move.w	#$120,$38(a1)
-		move.w	#$EC,$A(a1)
-		move.w	$A(a1),$3A(a1)
+		move.w	#$EC,$C(a1)
+		move.w	$C(a1),$3A(a1)
 		move.b	#$1C,$3C(a1)
 		lea	($FFFFFE58).w,a3
 
@@ -6631,7 +6631,7 @@ loc_5B96:
 		add.w	$38(a0),d1
 		add.w	$3A(a0),d0
 		move.w	d1,8(a0)
-		move.w	d0,$A(a0)
+		move.w	d0,$C(a0)
 
 locret_5BBA:
 		rts	
@@ -9578,7 +9578,7 @@ Obj15_Action2:				; XREF: Obj15_Index
 		moveq	#0,d3
 		move.b	$16(a0),d3
 		addq.b	#1,d3
-		bsr.w	MvSonicOnPtfm
+		jsr	MvSonicOnPtfm
 		bsr.w	DisplaySprite
 		bra.w	Obj15_ChkDel
 
@@ -9980,7 +9980,7 @@ loc_7F06:
 		bsr.w	Obj18_Move
 		bsr.w	Obj18_Nudge
 		move.w	(sp)+,d2
-		bsr.w	MvSonicOnPtfm2
+		jsr	MvSonicOnPtfm2
 		bsr.w	DisplaySprite
 		bra.w	Obj18_ChkDel
 
@@ -10420,7 +10420,7 @@ Obj53_WalkOff:				; XREF: Obj53_Index
 		move.w	#$20,d1
 		bsr.w	ExitPlatform
 		move.w	8(a0),d2
-		bsr.w	MvSonicOnPtfm2
+		jsr	MvSonicOnPtfm2
 		bra.w	MarkObjGone
 ; End of function Obj53_WalkOff
 
@@ -12693,7 +12693,7 @@ Obj26_Solid:				; XREF: Obj26_Index
 loc_A1BC:				; XREF: Obj26_Solid
 		move.w	#$10,d3
 		move.w	8(a0),d2
-		bsr.w	MvSonicOnPtfm
+		jsr	MvSonicOnPtfm
 		bra.w	Obj26_Animate
 ; ===========================================================================
 
@@ -13055,7 +13055,7 @@ Obj0E_Index:	dc.w Obj0E_Main-Obj0E_Index
 Obj0E_Main:				; XREF: Obj0E_Index
 		addq.b	#2,$24(a0)
 		move.w	#$F8,8(a0)
-		move.w	#$DE,$A(a0)
+		move.w	#$DE,$C(a0)
 		move.l	#Map_obj0E,4(a0)
 		move.w	#$2300,2(a0)
 		move.b	#1,$18(a0)
@@ -13071,19 +13071,19 @@ Obj0E_Delay:				; XREF: Obj0E_Index
 ; ===========================================================================
 
 Obj0E_Wait:				; XREF: Obj0E_Delay
-		rts	
+		rts
 ; ===========================================================================
 
 Obj0E_Move:				; XREF: Obj0E_Index
-		subq.w	#8,$A(a0)
-		cmpi.w	#$96,$A(a0)
+		subq.w	#8,$C(a0)
+		cmpi.w	#$96,$C(a0)
 		bne.s	Obj0E_Display
 		addq.b	#2,$24(a0)
 
 Obj0E_Display:
 		bra.w	DisplaySprite
 ; ===========================================================================
-		rts	
+		rts
 ; ===========================================================================
 
 Obj0E_Animate:				; XREF: Obj0E_Index
@@ -13091,7 +13091,7 @@ Obj0E_Animate:				; XREF: Obj0E_Index
 		bsr.w	AnimateSprite
 		bra.w	DisplaySprite
 ; ===========================================================================
-		rts	
+		rts
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Object 0F - "PRESS START BUTTON" and "TM" from title screen
@@ -13107,12 +13107,15 @@ Obj0F:					; XREF: Obj_Index
 Obj0F_Index:	dc.w Obj0F_Main-Obj0F_Index
 		dc.w Obj0F_PrsStart-Obj0F_Index
 		dc.w locret_A6F8-Obj0F_Index
+		dc.w ObjMenu_Spawn_Thing-Obj0F_Index ; 6
+		dc.w ObjMenuThingInit-Obj0F_Index ; 8
+		dc.w Draw_Follow_Menu-Obj0F_Index ; $A
 ; ===========================================================================
 
 Obj0F_Main:				; XREF: Obj0F_Index
 		addq.b	#2,$24(a0)
 		move.w	#$D8,8(a0)
-		move.w	#$130,$A(a0)
+		move.w	#$130,$C(a0)
 		move.l	#Map_obj0F,4(a0)
 		move.w	#$200,2(a0)
 		cmpi.b	#2,$1A(a0)	; is object "PRESS START"?
@@ -13122,15 +13125,40 @@ Obj0F_Main:				; XREF: Obj0F_Index
 		bne.s	locret_A6F8	; if not, branch
 		move.w	#$2510,2(a0)	; "TM" specific	code
 		move.w	#$178,8(a0)
-		move.w	#$F8,$A(a0)
+		move.w	#$F8,$C(a0)
 
 locret_A6F8:				; XREF: Obj0F_Index
-		rts	
+		rts
 ; ===========================================================================
 
 Obj0F_PrsStart:				; XREF: Obj0F_Index
 		lea	(Ani_obj0F).l,a1
 		bra.w	AnimateSprite
+ObjMenu_Spawn_Thing:
+                bsr.w	SingleObjLoad
+		bne.s	locret_A6F8
+		move.b  #$8,$24(a1)
+		move.b	(a0),(a1)
+	;	move.w	8(a0),8(a1)
+	;	move.w	$C(a0),$C(a1)
+
+		move.w  a0,$3E(a1)
+		move.w   a1,$3E(a0)
+		move.b   #$2,$24(a0)
+		rts
+ObjMenuThingInit:
+                addq.b   #2,$24(a0)
+                move.l	#Map_MenuS4,4(a0)
+                move.w	#$106,2(a0)
+                move.w	#$80,8(a0)
+		move.w	#$DE,$C(a0)
+Draw_Follow_Menu:
+                move.w   $3E(a0),a1
+                addq.w   #1,$8(a0)
+               ; move.w    8(a1),8(a0)
+               ; move.w    $C(a1),$C(a0)
+               ; subi.w     #$10,$C(a0)
+                rts
 ; ===========================================================================
 Ani_obj0E:
 	include "_anim\obj0E.asm"
@@ -15067,7 +15095,7 @@ loc_C186:				; XREF: loc_BF6E
 
 loc_C1A4:
 		move.w	d4,d2
-		bra.w	MvSonicOnPtfm
+		jmp	MvSonicOnPtfm
 ; ===========================================================================
 
 loc_C1AA:
@@ -15233,7 +15261,7 @@ Obj34_Loop:
 		move.w	(a3),8(a1)	; load start x-position
 		move.w	(a3)+,$32(a1)	; load finish x-position (same as start)
 		move.w	(a3)+,$30(a1)	; load main x-position
-		move.w	(a2)+,$A(a1)
+		move.w	(a2)+,$C(a1)
 		move.b	(a2)+,$24(a1)
 		move.b	(a2)+,d0
 		bne.s	Obj34_ActNumber
@@ -15375,7 +15403,7 @@ Obj39_Main:
 		move.w	#$1F0,8(a0)	; set x-position for "OVER"
 
 loc_C4EC:
-		move.w	#$F0,$A(a0)
+		move.w	#$F0,$C(a0)
 		move.l	#Map_obj39,4(a0)
 		move.w	#$855E,2(a0)
 		move.b	#0,1(a0)
@@ -15464,7 +15492,7 @@ Obj3A_Loop:
 		move.w	(a2),8(a1)	; load start x-position
 		move.w	(a2)+,$32(a1)	; load finish x-position (same as start)
 		move.w	(a2)+,$30(a1)	; load main x-position
-		move.w	(a2)+,$A(a1)	; load y-position
+		move.w	(a2)+,$C(a1)	; load y-position
 		move.b	(a2)+,$24(a1)
 		move.b	(a2)+,d0
 		cmpi.b	#6,d0
@@ -15694,7 +15722,7 @@ Obj7E_Loop:
 		move.b	#$7E,0(a1)
 		move.w	(a2)+,8(a1)	; load start x-position
 		move.w	(a2)+,$30(a1)	; load main x-position
-		move.w	(a2)+,$A(a1)	; load y-position
+		move.w	(a2)+,$C(a1)	; load y-position
 		move.b	(a2)+,$24(a1)
 		move.b	(a2)+,$1A(a1)
 		move.l	#Map_obj7E,4(a1)
@@ -15850,7 +15878,7 @@ Obj7F_Main:				; XREF: Obj7F_Index
 Obj7F_Loop:
 		move.b	#$7F,0(a1)
 		move.w	(a2)+,8(a1)	; set x-position
-		move.w	#$F0,$A(a1)	; set y-position
+		move.w	#$F0,$C(a1)	; set y-position
 		lea	($FFFFFE58).w,a3 ; check which emeralds	you have
 		move.b	(a3,d2.w),d3
 		move.b	d3,$1A(a1)
@@ -16689,7 +16717,7 @@ loc_D672:
 ; ===========================================================================
 
 loc_D6DE:
-		move.w	$A(a0),d2
+		move.w	$C(a0),d2
 		move.w	8(a0),d3
 		bra.s	loc_D700
 ; ===========================================================================
@@ -19275,7 +19303,7 @@ Obj50_Main:				; XREF: Obj50_Index
 		bchg	#0,$22(a0)
 
 locret_F89E:
-		rts	
+		rts
 ; ===========================================================================
 
 Obj50_Action:				; XREF: Obj50_Index
@@ -19302,7 +19330,7 @@ Obj50_Move:				; XREF: Obj50_Index2
 		neg.w	$10(a0)		; change direction
 
 locret_F8E2:
-		rts	
+		rts
 ; ===========================================================================
 
 Obj50_FixToFloor:			; XREF: Obj50_Index2
@@ -19315,7 +19343,7 @@ Obj50_FixToFloor:			; XREF: Obj50_Index2
 		add.w	d1,$C(a0)	; match	object's position to the floor
 		bsr.w	Obj50_ChkWall
 		bne.s	Obj50_Pause
-		rts	
+		rts
 ; ===========================================================================
 
 Obj50_Pause:				; XREF: Obj50_FixToFloor
@@ -19323,7 +19351,7 @@ Obj50_Pause:				; XREF: Obj50_FixToFloor
 		move.w	#59,$30(a0)	; set pause time to 1 second
 		move.w	#0,$10(a0)
 		move.b	#0,$1C(a0)
-		rts	
+		rts
 ; ===========================================================================
 Ani_obj50:
 	include "_anim\obj50.asm"
@@ -19367,14 +19395,14 @@ loc_F9FE:
 		bclr	#3,$22(a0)
 		clr.b	$25(a0)
 		moveq	#0,d4
-		rts	
+		rts
 ; ===========================================================================
 
 loc_FA12:
 		move.w	d4,d2
-		bsr.w	MvSonicOnPtfm
+		jsr	MvSonicOnPtfm
 		moveq	#0,d4
-		rts	
+		rts
 ; ===========================================================================
 
 SolidObject71:				; XREF: Obj71_Solid
@@ -19402,7 +19430,7 @@ loc_FA44:
 
 loc_FA58:
 		move.w	d4,d2
-		bsr.w	MvSonicOnPtfm
+		jsr	MvSonicOnPtfm
 		moveq	#0,d4
 		rts	
 ; ===========================================================================
@@ -21556,7 +21584,7 @@ Obj5C_Display:				; XREF: Obj5C_Index
 		andi.w	#$3F,d1
 		neg.w	d1
 		addi.w	#$100,d1
-		move.w	d1,$A(a0)
+		move.w	d1,$C(a0)
 		bra.w	DisplaySprite
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -22177,7 +22205,7 @@ loc_1185C:
 		add.w	$30(a0),d2
 		move.w	d2,8(a0)
 		clr.w	$E(a0)
-		clr.w	$A(a0)
+		clr.w	$C(a0)
 		rts	
 ; ===========================================================================
 
@@ -23296,7 +23324,7 @@ loc_125AE:
 		move.w	d0,$10(a0)
 		move.w	d3,$12(a0)
 		swap	d0
-		move.w	d0,$A(a0)
+		move.w	d0,$C(a0)
 		clr.w	$E(a0)
 		rts	
 ; ===========================================================================
@@ -23315,7 +23343,7 @@ loc_125D4:
 		move.w	d2,$10(a0)
 		swap	d1
 		move.w	d1,$E(a0)
-		clr.w	$A(a0)
+		clr.w	$C(a0)
 		rts	
 ; End of function Obj63_ChangeDir
 
@@ -24618,7 +24646,7 @@ Boundary_Bottom_locret:
 
 Boundary_Sides:
 		move.w	d0,8(a0)
-		move.w	#0,$A(a0)
+		move.w	#0,$C(a0)
 		move.w	#0,$10(a0)	; stop Sonic moving
 		move.w	#0,$14(a0)
 		bra.s	loc_13336
@@ -26312,7 +26340,7 @@ Obj0A_ShowNumber:			; XREF: Obj0A_Wobble; Obj0A_Display
 		move.w	$C(a0),d0
 		sub.w	($FFFFF704).w,d0
 		addi.w	#$80,d0
-		move.w	d0,$A(a0)
+		move.w	d0,$C(a0)
 		move.b	#$C,$24(a0)
 
 locret_13E1A:
@@ -26499,30 +26527,30 @@ Air_GetBgm2:
 		bne.s	Air_GetBgm3	; if not, branch
 		lea	(MusicList2).l,a1	; load Music Playlist for Acts 2
 		bra.s	Air_PlayMusic	; go to PlayMusic
- 
+
 Air_GetBgm3:
 		cmpi.b	#$2,($FFFFFE11).w	; is this act 3?
 		bne.s	Air_GetBgm4	; if not, branch
 		lea	(MusicList3).l,a1	; load Music Playlist for Acts 3
 		bra.s	Air_PlayMusic	; go to PlayMusic
- 
+
 Air_GetBgm4:
 		cmpi.b	#$3,($FFFFFE11).w	; is this act 4?
 		bne.s	Air_PlayMusic	; if not, branch
 		lea	(MusicList4).l,a1	; load Music Playlist for Acts 4
- 
+
 Air_PlayMusic:
 		move.b	1(a1),d0	; load entry $1 from the playlist
- 
+
 loc_140A6:
 		jsr	(PlaySound).l
- 
+
 ; NineKode ends here
 
 loc_140AC:
 		move.w	#$1E,($FFFFFE14).w
 		clr.b	($FFFFD372).w
-		rts	
+		rts
 ; End of function ResumeMusic
 
 ; ===========================================================================
@@ -30585,7 +30613,7 @@ Obj8A_Index:	dc.w Obj8A_Main-Obj8A_Index
 Obj8A_Main:				; XREF: Obj8A_Index
 		addq.b	#2,$24(a0)
 		move.w	#$120,8(a0)
-		move.w	#$F0,$A(a0)
+		move.w	#$F0,$C(a0)
 		move.l	#Map_obj8A,4(a0)
 		move.w	#$5A0,2(a0)
 		move.w	($FFFFFFF4).w,d0 ; load	credits	index number
@@ -32799,7 +32827,7 @@ loc_18E48:
 		add.w	$30(a0),d2
 		move.w	d2,8(a0)
 		clr.w	$E(a0)
-		clr.w	$A(a0)
+		clr.w	$C(a0)
 		subq.w	#1,$28(a0)
 		bne.s	loc_18E7A
 		move.w	#$20,$28(a0)
@@ -36427,7 +36455,7 @@ Obj09_Display:				; XREF: Obj09_OnWall
 		add.w	($FFFFF782).w,d0
 		move.w	d0,($FFFFF780).w
 		jsr	Sonic_Animate
-		rts	
+		rts
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
@@ -36485,7 +36513,7 @@ loc_1BAA8:
 		sub.l	d1,8(a0)
 		sub.l	d0,$C(a0)
 		move.w	#0,$14(a0)
-		rts	
+		rts
 ; ===========================================================================
 
 loc_1BAF2:
@@ -37632,7 +37660,7 @@ Obj21_Index:	dc.w Obj21_Main-Obj21_Index
 Obj21_Main:				; XREF: Obj21_Main
 		addq.b	#2,$24(a0)
 		move.w	#$90,8(a0)
-		move.w	#$108,$A(a0)
+		move.w	#$108,$C(a0)
 		move.l	#Map_obj21,4(a0)
                 move.w    #$6BA,2(a0)
 		move.b	#0,1(a0)
@@ -38312,7 +38340,7 @@ Hud_ClrLivesLoop:
 Art_Hud:	incbin	artunc\HUD.bin		; 8x16 pixel numbers on HUD
 		even
 Art_LivesNums:	incbin	artunc\livescnt.bin	; 8x8 pixel numbers on lives counter
-		even
+		even   
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; When debug mode is currently in use
@@ -38495,7 +38523,7 @@ Debug_Exit:
 		move.l	#Map_Sonic,($FFFFD004).w
 		move.w	#$780,($FFFFD002).w
 		move.b	d0,($FFFFD01C).w
-		move.w	d0,$A(a0)
+		move.w	d0,$C(a0)
 		move.w	d0,$E(a0)
 		move.w	($FFFFFEF0).w,($FFFFF72C).w ; restore level boundaries
 		move.w	($FFFFFEF2).w,($FFFFF726).w

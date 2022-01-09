@@ -15,3 +15,6 @@ DEL "Dual PCM\Z80.h"
 "_Assembly Tools\CheckFix.exe" "s1built.bin"
 
 :Error
+
+echo Build failed
+pause
