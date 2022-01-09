@@ -1,7 +1,48 @@
 {
-    "description": "Flex 2 Project File",
+    "Flex": 2,
     "name": "S4",
+    "node": "800fcd49-97fd-4713-b91c-2dd47b3ffeae",
     "objects": [
+        {
+            "uuid": "0453399f-f74d-4fd1-b2e4-a116a6c36a48",
+            "format": "Sonic 1.js",
+            "name": "object",
+            "palettes": [],
+            "art": {
+                "path": "",
+                "compression": "Uncompressed",
+                "offset": 0
+            },
+            "mappings": {
+                "path": "",
+                "label": ""
+            },
+            "dplcs": {
+                "enabled": false,
+                "path": "",
+                "label": ""
+            }
+        },
+        {
+            "uuid": "c5045339-9ff7-4d9f-9172-e4a116a6c36a",
+            "format": "Sonic 1.js",
+            "name": "object",
+            "palettes": [],
+            "art": {
+                "path": "",
+                "compression": "Uncompressed",
+                "offset": 0
+            },
+            "mappings": {
+                "path": "",
+                "label": ""
+            },
+            "dplcs": {
+                "enabled": false,
+                "path": "",
+                "label": ""
+            }
+        },
         {
             "uuid": "2fbd6524-29e2-4418-9c51-efac586bb4ac",
             "format": "Sonic 1.js",
@@ -34,7 +75,8 @@
             ],
             "art": {
                 "path": "artkos\\menuslctr.bin",
-                "compression": "Kosinski"
+                "compression": "Kosinski",
+                "offset": 0
             },
             "mappings": {
                 "path": "_maps\\menuslctr.asm",
@@ -48,7 +90,8 @@
                 "format": "Sonic 1",
                 "customDefinition": "",
                 "label": ""
-            }
+            },
+            "uuid": "800fcd49-97fd-4713-b91c-2dd47b3ffeae"
         }
     ]
 }

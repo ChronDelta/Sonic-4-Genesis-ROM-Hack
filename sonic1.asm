@@ -235,7 +235,7 @@ GameModeArray:
 ; ===========================================================================
 		bra.w	Credits		; Credits ($1C)
 ; ===========================================================================
-		rts	
+		rts
 ; ===========================================================================
 
 CheckSumError:
@@ -403,7 +403,7 @@ loc_B5E:				; XREF: loc_B88
 loc_B64:				; XREF: loc_D50
 		addq.l	#1,($FFFFFE0C).w
 		movem.l	(sp)+,d0-a6
-		rte	
+		rte
 ; ===========================================================================
 off_B6E:	dc.w loc_B88-off_B6E, loc_C32-off_B6E
 		dc.w loc_C44-off_B6E, loc_C5E-off_B6E
@@ -470,7 +470,7 @@ loc_C36:				; XREF: off_B6E
 		subq.w	#1,($FFFFF614).w
 
 locret_C42:
-		rts	
+		rts
 ; ===========================================================================
 
 loc_C44:				; XREF: off_B6E
@@ -482,7 +482,7 @@ loc_C44:				; XREF: off_B6E
 		subq.w	#1,($FFFFF614).w
 
 locret_C5C:
-		rts	
+		rts
 ; ===========================================================================
 
 loc_C5E:				; XREF: off_B6E
@@ -491,7 +491,7 @@ loc_C5E:				; XREF: off_B6E
 
 Return:
 		bsr.w	ReadJoypads
-		rts	
+		rts
 ; ===========================================================================
 
 loc_C64:				; XREF: off_B6E
@@ -569,7 +569,7 @@ Demo_Time:				; XREF: loc_D50; PalToCRAM
 		subq.w	#1,($FFFFF614).w ; subtract 1 from time	left
 
 Demo_TimeEnd:
-		rts	
+		rts
 ; End of function Demo_Time
 
 ; ===========================================================================
@@ -2899,7 +2899,7 @@ loc_20BC:
 
 Pal_Sega1:	incbin	pallet\sega1.bin
 Pal_Sega2:	incbin	pallet\sega2.bin
-	
+
 ; ---------------------------------------------------------------------------
 ; Subroutines to load pallets
 ; ---------------------------------------------------------------------------
@@ -3367,8 +3367,26 @@ Title_ClrPallet:
 
 Title_LoadText:
 		move.w	(a5)+,(a6)
-		dbf	d1,Title_LoadText ; load uncompressed text patterns
 
+		dbf	d1,Title_LoadText ; load uncompressed text patterns
+                lea	(Kos_Menu_art).l,a0	; load that art
+		move.l	($FF0000).l,a1	; don't wanna corrupt level loading in any way!!
+		jsr	KosDec		; decompress that fucker
+		move.w	a1,d3
+		lsr.w	#1,d3
+
+		lea	($C00000).l,a6 ; lea to video ram
+		move.l	#$60C00000,4(a6)  ; its location on V ram
+		move.l	#$FF0000,a5 ; dump decompression to Video ram
+		move.w	#$1B*10,d1	; Tile limit: $10 bytes/tile
+
+LoadMenuSelectThing:
+		move.w	(a5)+,(a6)
+		dbf	d1,LoadMenuSelectThing
+               ; move.w	#$1B*10,d3
+               ; divu.w  #$10,d3 ; devide this
+
+              ;  add.w
 		move.b	#0,($FFFFFE30).w ; clear lamppost counter
 		move.w	#0,($FFFFFE08).w ; disable debug item placement	mode
 		move.w	#0,($FFFFFFF0).w ; disable debug mode
@@ -3452,7 +3470,7 @@ loc_317C:
 		cmpi.w	#$1C00,d0	; has Sonic object passed x-position $1C00?
 		bcs.s	Title_ChkRegion	; if not, branch
 		move.b	#0,($FFFFF600).w ; go to Sega screen
-		rts	
+		rts
 ; ===========================================================================
 
 Title_ChkRegion:
@@ -3880,7 +3898,7 @@ MusicList2:	incbin	misc\muslist2.bin
 MusicList3:	incbin	misc\muslist3.bin
 		even
 MusicList4:	incbin	misc\muslist4.bin
-		even						
+		even
 ; ===========================================================================
 
 ; ---------------------------------------------------------------------------
@@ -23709,7 +23727,7 @@ Obj01_Control:				; XREF: Obj01_Index
 		beq.s	loc_12C58	; if not, branch
 		move.w	#1,($FFFFFE08).w ; change Sonic	into a ring/item
 		clr.b	($FFFFF7CC).w
-		rts	
+		rts
 ; ===========================================================================
 
 loc_12C58:
@@ -23748,7 +23766,7 @@ loc_12CA6:
 loc_12CB6:
 		bsr.w	Sonic_Loops
 		bsr.w	LoadSonicDynPLC
-		rts	
+		rts
 ; ===========================================================================
 Obj01_Modes:	dc.w Obj01_MdNormal-Obj01_Modes
 		dc.w Obj01_MdJump-Obj01_Modes
@@ -23772,7 +23790,7 @@ Obj01_Display:
 		jsr	DisplaySprite
 
 ; Second part of the NineKode. Play different music on different acts - after invincibility wears off
- 
+
 Obj01_ChkInvin:
 		tst.b	($FFFFFE2D).w	; does Sonic have invincibility?
 		beq.w	Obj01_ChkShoes	; if not, branch	; change to beq.w
@@ -26158,7 +26176,7 @@ SPLC_ReadEntry:
 		dbf	d5,SPLC_ReadEntry	; repeat for number of entries
 
 locret_13C96:
-		rts	
+		rts
 ; End of function LoadSonicDynPLC
 
 ; ===========================================================================
@@ -38585,6 +38603,9 @@ Eni_JapNames:	incbin	mapeni\japcreds.bin	; Japanese credits (mappings)
 		even
 Nem_JapNames:	incbin	artnem\japcreds.bin	; Japanese credits
 		even
+Kos_Menu_art:   incbin  artkos/menuslctr.bin
+		 even
+Map_MenuS4: 	include  "_maps/menuslctr.asm"
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - Sonic
 ; ---------------------------------------------------------------------------
@@ -38602,7 +38623,7 @@ SonicDynPLC:
 ; ---------------------------------------------------------------------------
 Art_Sonic:	incbin	artunc\sonic.bin	; Sonic
 		even
-Art_Dust:	incbin	artunc\spindust.bin		
+Art_Dust:	incbin	artunc\spindust.bin
 		even
 ; ---------------------------------------------------------------------------
 ; Compressed graphics - various
