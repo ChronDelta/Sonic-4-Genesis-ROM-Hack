@@ -3532,9 +3532,9 @@ loc_3230:
 Title_ChkLevSel:
 		tst.b	($FFFFFFE0).w		; check	if level select	code is	on
 		beq.w	PlayLevel		; if not, play level
-		btst	#6,($FFFFF604).w ; check if A is pressed
-		beq.w	PlayLevel		; if not, play level
-		jmp	Level_Select_Menu	; if yes, goto Sonic 2 level select	
+	;	btst	#6,($FFFFF604).w ; check if A is pressed
+	;	beq.w	PlayLevel		; if not, play level
+		jmp	Level_Select_Menu	; if yes, goto Sonic 2 level select
 		moveq	#2,d0
 		lea	($FFFFCC00).w,a1
 		moveq	#0,d0
