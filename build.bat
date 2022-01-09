@@ -1,9 +1,4 @@
 @echo off
-asm68k /o op+ /o os+ /o ow+ /o oz+ /o oaq+ /o osq+ /o omq+ /p /o ae- sonic1.asm, s1built.bin, sonic1.sym, sonic1.lst
-convsym sonic1.sym sonic1.symcmp
-copy /B s1built.bin+sonic1.symcmp s1built.bin /Y
-del sonic1.symcmp
-pause
 
 "_Assembly Tools\AS\asl.exe" -q -cpu Z80 -gnuerrors -c -A -L -xx "Dual PCM\Z80.asm"
 "_Assembly Tools\AS\p2bin.exe" "Dual PCM\Z80.p" "Dual PCM\Z80.bin" -r 0x-0x
