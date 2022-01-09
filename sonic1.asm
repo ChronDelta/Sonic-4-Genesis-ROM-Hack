@@ -38991,6 +38991,15 @@ Nem_EndStH:	incbin	artnem\endtext.bin	; ending sequence "Sonic the Hedgehog" tex
 		even
 		incbin	misc\padding2.bin
 		even
+MenuslctrART:	incbin	"artkos\Menuslctr.bin"	; art for that soncc 4 menu selecting thingy 
+		even
+;The Menu Selector uses the third palette line for the Title Screen.
+;Load it into Flex2, and select the title palette.
+;Change the palette lines to 3, and slide it to 0 in the palettes tab. 
+;The rest is is right here.
+; - Chron Delta
+MenuslctrMappings:	incbin	"_maps\Menuslctr.asm"	; mappings for that soncc 4 menu selecting thingy
+		even		
 ; ---------------------------------------------------------------------------
 ; Collision data
 ; ---------------------------------------------------------------------------

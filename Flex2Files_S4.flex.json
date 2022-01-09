@@ -1,7 +1,6 @@
 {
-    "Flex": 2,
-    "name": "",
-    "node": "2fbd6524-29e2-4418-9c51-efac586bb4ac",
+    "description": "Flex 2 Project File",
+    "name": "S4",
     "objects": [
         {
             "uuid": "2fbd6524-29e2-4418-9c51-efac586bb4ac",
@@ -15,11 +14,39 @@
             },
             "mappings": {
                 "path": "_maps\\obj21.asm",
+                "label": "",
+                "customDefinition": ""
+            },
+            "dplcs": {
+                "enabled": false,
+                "path": "",
+                "label": "",
+                "customDefinition": ""
+            }
+        },
+        {
+            "name": "Menu Selec thingy",
+            "palettes": [
+                {
+                    "path": "pallet\\title.bin",
+                    "length": 3
+                }
+            ],
+            "art": {
+                "path": "artkos\\menuslctr.bin",
+                "compression": "Kosinski"
+            },
+            "mappings": {
+                "path": "_maps\\menuslctr.asm",
+                "format": "Sonic 1",
+                "customDefinition": "",
                 "label": ""
             },
             "dplcs": {
                 "enabled": false,
                 "path": "",
+                "format": "Sonic 1",
+                "customDefinition": "",
                 "label": ""
             }
         }
